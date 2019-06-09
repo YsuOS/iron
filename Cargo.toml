@@ -5,5 +5,5 @@ authors = ["Ryosuke YASUOKA <yasuoka0830@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-iron = "0.5.1"
-router = "0.5.1"
+iron = "*"
+router = "*"
