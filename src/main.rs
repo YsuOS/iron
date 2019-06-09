@@ -1,18 +1,32 @@
 extern crate iron;
 #[macro_use]
 extern crate router;
+extern crate urlencoded;
 
 use iron::prelude::*;
 use iron::status;
 use router::Router;
+use urlencoded::UrlEncodedQuery;
 
 fn main() {
-    let router = router!(root: get "/" => handler, query: get "/:query" => query_handler);
+    let router = router!{
+        id_1: get "/" => handler,
+        id_2: get "/:query" => query_handler
+    };
+
 
     Iron::new(router).http("localhost:3000").unwrap();
 
-    fn handler(_: &mut Request) -> IronResult<Response> {
-        Ok(Response::with((status::Ok, "Hello world")))
+    fn handler(req: &mut Request) -> IronResult<Response> {
+        match req.get_ref::<UrlEncodedQuery>() {
+            Ok(ref query) => println!("{:?}", query),
+            Err(ref e) => println!("{:?}", e)
+        }
+
+        Ok(Response::with((
+                    status::Ok, 
+                    "hello world"
+                    )))
     }
 
     fn query_handler(req: &mut Request) -> IronResult<Response> {
