@@ -1,4 +1,5 @@
 extern crate iron;
+#[macro_use]
 extern crate router;
 
 use iron::prelude::*;
@@ -6,9 +7,7 @@ use iron::status;
 use router::Router;
 
 fn main() {
-    let mut router = Router::new();
-    router.get("/", handler, "handler");
-    router.get("/:query", query_handler, "query_handler");
+    let router = router!(root: get "/" => handler, query: get "/:query" => query_handler);
 
     Iron::new(router).http("localhost:3000").unwrap();
 
