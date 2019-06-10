@@ -21,14 +21,16 @@ fn main() {
         let ref query = req.get_ref::<UrlEncodedQuery>().unwrap();
         let value = query.get("key").unwrap();
         let value1 = value[0].parse::<u32>().unwrap();
-        let value2 = value[1].parse::<u32>().unwrap();
+//        let value2 = value[1].parse::<u32>().unwrap();
+        let value3 = query.get("key2").unwrap()[0].parse::<u32>().unwrap();
         println!("{:?}", query);
 //        println!("{}", value1);
 //        println!("{}", value2);
+        println!("{}", value3);
 
         Ok(Response::with((
                     status::Ok, 
-                    (value1 + value2).to_string()
+                    (value1 + value3).to_string()
                     )))
     }
 
