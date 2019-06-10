@@ -18,14 +18,17 @@ fn main() {
     Iron::new(router).http("localhost:3000").unwrap();
 
     fn handler(req: &mut Request) -> IronResult<Response> {
-        match req.get_ref::<UrlEncodedQuery>() {
-            Ok(ref query) => println!("{:?}", query),
-            Err(ref e) => println!("{:?}", e)
-        }
+        let ref query = req.get_ref::<UrlEncodedQuery>().unwrap();
+        let value = query.get("key").unwrap();
+        let value1 = value[0].parse::<u32>().unwrap();
+        let value2 = value[1].parse::<u32>().unwrap();
+        println!("{:?}", query);
+//        println!("{}", value1);
+//        println!("{}", value2);
 
         Ok(Response::with((
                     status::Ok, 
-                    "hello world"
+                    (value1 + value2).to_string()
                     )))
     }
 
