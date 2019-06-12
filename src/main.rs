@@ -17,21 +17,25 @@ fn main() {
 
     Iron::new(router).http("0.0.0.0:3000").unwrap();
 
-    fn handler(req: &mut Request) -> IronResult<Response> {
-        let ref query = req.get_ref::<UrlEncodedQuery>().unwrap();
-        let value = query.get("key").unwrap();
-        let value1 = value[0].parse::<u32>().unwrap();
-//        let value2 = value[1].parse::<u32>().unwrap();
-        let value3 = query.get("key2").unwrap()[0].parse::<u32>().unwrap();
-        println!("{:?}", query);
-//        println!("{}", value1);
-//        println!("{}", value2);
-        println!("{}", value3);
-
+    fn handler(_: &mut Request) -> IronResult<Response> {
         Ok(Response::with((
                     status::Ok, 
-                    (value1 + value3).to_string()
+                    "AMAZON"
                     )))
+//        let ref query = req.get_ref::<UrlEncodedQuery>().unwrap();
+//        let value = query.get("key").unwrap();
+//        let value1 = value[0].parse::<u32>().unwrap();
+////        let value2 = value[1].parse::<u32>().unwrap();
+//        let value3 = query.get("key2").unwrap()[0].parse::<u32>().unwrap();
+//        println!("{:?}", query);
+////        println!("{}", value1);
+////        println!("{}", value2);
+//        println!("{}", value3);
+//
+//        Ok(Response::with((
+//                    status::Ok, 
+//                    (value1 + value3).to_string()
+//                    )))
     }
 
     fn query_handler(req: &mut Request) -> IronResult<Response> {
